@@ -1,10 +1,12 @@
 import { useRef, useState } from 'react';
 import './App.css'
+import redEye from '../public/redEye.png';
 
 function App() {
 
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const [showEyes, setShowEyes] = useState(false);
 
   const startRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -55,6 +57,10 @@ function App() {
       const audioUrl = URL.createObjectURL(await audioResponse);
       const audio = new Audio(audioUrl);
       audio.play();
+      setShowEyes(true);
+      audio.onended = () => {
+        setShowEyes(false);
+      }
       
     } catch (error) {
       console.error('There was a problem with your fetch operation:', error);
@@ -64,12 +70,17 @@ function App() {
 
   return (
     <>
-      <h1>Talk if you dare...</h1>
+      <div className='eyesDiv'>
+      <img src={redEye} alt="eyes" className={`eyeImage ${showEyes ? 'show' : ''}`} />
+      <img src={redEye} alt="eyes" className={`eyeImage ${showEyes ? 'show' : ''}`} /> 
+      </div>
+      <h1>Introduce yourself...</h1>
       {isRecording ? (
-                <button onClick={stopRecording}>Stop Recording</button>
+                <button onClick={stopRecording}>Stop Talking</button>
             ) : (
-                <button onClick={startRecording}>Start Recording</button>
+                <button onClick={startRecording} className='stopTalking'>Start Talking</button>
             )}
+      <footer className='footer'><a href="https://www.flaticon.com/free-icons/red-eyes" title="red eyes icons">Red eyes icons created by Muhammad_Usman - Flaticon</a></footer>
     </>
   )
 }

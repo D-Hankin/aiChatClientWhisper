@@ -5,3 +5,31 @@
   text-align: center;
 }
 
+.footer {
+  display: flex;
+  width: 100%;
+  margin-top: 20rem;
+  align-items: flex-start;
+  font-size: 0.5rem;
+}
+
+.eyesDiv {
+  display: flex;
+  gap: 4rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.eyeImage {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.eyeImage.show {
+  opacity: 1;
+}
+
+.stopTalking {
+  color: red;
+}
