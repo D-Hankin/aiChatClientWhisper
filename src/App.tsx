@@ -76,9 +76,9 @@ function App() {
       </div>
       <h1>Introduce yourself...</h1>
       {isRecording ? (
-                <button onClick={stopRecording}>Stop Talking</button>
+                <button onClick={stopRecording} className='stopTalking'>Stop Talking</button>
             ) : (
-                <button onClick={startRecording} className='stopTalking'>Start Talking</button>
+                <button onClick={startRecording}>Start Talking</button>
             )}
       <footer className='footer'><a href="https://www.flaticon.com/free-icons/red-eyes" title="red eyes icons">Red eyes icons created by Muhammad_Usman - Flaticon</a></footer>
     </>
