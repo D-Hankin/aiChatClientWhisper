@@ -1,12 +1,22 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './App.css'
 import redEye from '../public/redEye.png';
+import fire from '../public/fire.gif';
 
 function App() {
 
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const [showEyes, setShowEyes] = useState(false);
+  const [fetchAddress, setFetchAddress] = useState<string>('');
+
+  useEffect(() => {
+    if(process.env.NODE_ENV === 'development') {
+      setFetchAddress('http://localhost:8080/whisper');
+    } else {
+      setFetchAddress('https://oyster-app-yues3.ondigitalocean.app/');
+    }
+  }, []);
 
   const startRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -41,7 +51,7 @@ function App() {
 
     try {
       console.log('Sending audio to server...', byteArray.length);
-      const response = await fetch('http://localhost:8080/whisper', {
+      const response = await fetch(fetchAddress, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/octet-stream',
@@ -70,9 +80,13 @@ function App() {
 
   return (
     <>
+      <div className='topFireDiv'>
+        <img src={fire} alt="fire" className={`eyeImage ${showEyes ? 'show' : ''}`} id='leftFire'/>
+        <img src={fire} alt="fire" className={`eyeImage ${showEyes ? 'show' : ''}`} id='rightFire'/>
+      </div>
       <div className='eyesDiv'>
-      <img src={redEye} alt="eyes" className={`eyeImage ${showEyes ? 'show' : ''}`} />
-      <img src={redEye} alt="eyes" className={`eyeImage ${showEyes ? 'show' : ''}`} /> 
+        <img src={redEye} alt="eyes" className={`eyeImage ${showEyes ? 'show' : ''}`} />
+        <img src={redEye} alt="eyes" className={`eyeImage ${showEyes ? 'show' : ''}`} /> 
       </div>
       <h1>Introduce yourself...</h1>
       {isRecording ? (
@@ -80,6 +94,9 @@ function App() {
             ) : (
                 <button onClick={startRecording}>Start Talking</button>
             )}
+      <div className='bottomFireDiv'>
+        <img src={fire} alt="fire" className={`eyeImage ${showEyes ? 'show' : ''}`} id='bottomFire'/>
+      </div>
       <footer className='footer'><a href="https://www.flaticon.com/free-icons/red-eyes" title="red eyes icons">Red eyes icons created by Muhammad_Usman - Flaticon</a></footer>
     </>
   )

@@ -33,3 +33,32 @@
 .stopTalking {
   color: red;
 }
+
+#leftFire {
+  width: 200px;
+  height: 200px;
+}
+
+#rightFire {
+  width: 80px;
+  height: 80px;
+}
+
+#bottomFire {
+  width: 250px;
+  height: 250px;
+}
+
+.topFireDiv {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20rem;
+}
+
+.bottomFireDiv {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 50px;
+}
