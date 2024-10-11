@@ -14,7 +14,7 @@ function App() {
     if(process.env.NODE_ENV === 'development') {
       setFetchAddress('http://localhost:8080/whisper');
     } else {
-      setFetchAddress('https://oyster-app-yues3.ondigitalocean.app/');
+      setFetchAddress('https://oyster-app-yues3.ondigitalocean.app/whisper');
     }
   }, []);
 
